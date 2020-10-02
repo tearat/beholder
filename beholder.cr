@@ -61,20 +61,20 @@ if all_arg || get_arg
 
     sites.each do |site|
         begin
-            start_time = Time.local.millisecond
+            start_time = Time.local
             response = HTTP::Client.get site
-            elapsed_time = Time.local.millisecond - start_time
+            elapsed_time = Time.local - start_time
             code = response.status_code
             if /[2,3].{2}/ =~ code.to_s
                 report = "#{site.ljust(max_len)}=> #{code.to_s.colorize.green}"
                 if time_arg
-                    report += " [ #{elapsed_time} ms ]"
+                    report += " [ #{elapsed_time} ]"
                 end
                 puts report
             else
                 report = "#{site.ljust(max_len)}=> #{code.to_s.colorize.red}"
                 if time_arg
-                    report += " [ #{elapsed_time} ms ]"
+                    report += " [ #{elapsed_time} ]"
                 end
                 puts report
             end
